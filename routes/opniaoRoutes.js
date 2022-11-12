@@ -24,7 +24,7 @@ async function ValidateCpf(cpf) {
         };
     }
   
-  const browser = await puppeteer.launch(options)
+  const browser = await puppeteer.launch()
   const page = await browser.newPage();
   console.log('abri o google')
   const inputCpf = '#SE_NomeTituloCPF'
