@@ -13,11 +13,11 @@ async function ValidateCpf(cpf) {
     } else {
         puppeteer = require("puppeteer");
     }
-
+    console.log('Antes de tudo havia o caos')
     if (process.env.AWS_LAMBDA) {
         options = {
             args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
-            defaultViewport: chromium.defaultViewport,
+            defaultViewport: chromium.defaultViewport,  
             executablePath: await chromium.executablePath,
             headless: true,
             ignoreHTTPSErrors: true,
