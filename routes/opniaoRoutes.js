@@ -6,7 +6,7 @@ router.get('/', async function(req, res){
 });
 
 router.get('/cpf/:cpf', async function(req, res){
-    const test = await userService.getUser(req.params.cpf);
+    const test = req.params.cpf;
     res.json(test);
 });
 
