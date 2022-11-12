@@ -1,11 +1,12 @@
 const chromium = require('chrome-aws-lambda');
+const puppeteer = require('puppeteer-core')
 const express = require('express');
 const router = express.Router();
 
 async function ValidateCpf(cpf) {
  
   
-  const browser = await chromium.puppeteer.launch({
+  const browser = await puppeteer.launch({
     args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
     defaultViewport: chromium.defaultViewport,
     executablePath: await chromium.executablePath,
