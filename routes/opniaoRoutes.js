@@ -1,19 +1,32 @@
-const chromium = require('chrome-aws-lambda');
-const puppeteer = require('puppeteer-core')
 const express = require('express');
 const router = express.Router();
 
 async function ValidateCpf(cpf) {
- 
+
+    let puppeteer
+    let chromium
+    let options
+
+    if (process.env.AWS_LAMBDA) {
+        chromium = require("chrome-aws-lambda");
+        puppeteer = require("puppeteer-core");
+    } else {
+        puppeteer = require("puppeteer");
+    }
+
+    if (process.env.AWS_LAMBDA) {
+        options = {
+            args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath,
+            headless: true,
+            ignoreHTTPSErrors: true,
+        };
+    }
   
-  const browser = await puppeteer.launch({
-    args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath,
-    headless: true,
-    ignoreHTTPSErrors: true,
-  })
+  const browser = await puppeteer.launch(options)
   const page = await browser.newPage();
+  console.log('abri o google')
   const inputCpf = '#SE_NomeTituloCPF'
   const result = '#return-form-situacao-eleitoral > p:nth-child(2)'
   
@@ -22,6 +35,7 @@ async function ValidateCpf(cpf) {
   await page.type(inputCpf, cpf, {delay:100})
   await page.waitForSelector(inputCpf)
   await page.keyboard.press('Enter')
+  console.log('pesquisei o cpf')
   await page.waitForSelector(result)
   const situacao = await page.evaluate(() => {
     return document.querySelector('#return-form-situacao-eleitoral > p:nth-child(2)').textContent
