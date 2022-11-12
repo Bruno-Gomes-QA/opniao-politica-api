@@ -6,8 +6,7 @@ async function ValidateCpf(cpf) {
     let puppeteer
     let chromium
     let options
-    console.log('Antes de tudo havia o caos')
-
+    
     if (process.env.AWS_LAMBDA) {
         chromium = require("chrome-aws-lambda");
         puppeteer = require("puppeteer-core");
@@ -38,11 +37,11 @@ async function ValidateCpf(cpf) {
   console.log('pesquisei o cpf')
   await page.waitForSelector(result)
   const situacao = await page.evaluate(() => {
-    return document.querySelector('#return-form-situacao-eleitoral > p:nth-child(2)').textContent
-  })
-  await browser.close()
-  return situacao
-
+      return document.querySelector('#return-form-situacao-eleitoral > p:nth-child(2)').textContent
+    })
+    await browser.close()
+    return situacao
+    
 };
 
 router.get('/', async function(req, res){
@@ -50,6 +49,7 @@ router.get('/', async function(req, res){
 });
 
 router.get('/cpf/:cpf', async function(req, res){
+    console.log('Antes de tudo havia o caos')
     const situacao = await ValidateCpf(req.params.cpf)
     res.json(situacao);
 });
