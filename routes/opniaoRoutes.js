@@ -6,13 +6,11 @@ async function ValidateCpf(cpf) {
     let puppeteer
     let chromium
     let options
+    let browser
+
     if (process.env.AWS_LAMBDA) {
         chromium = require("chrome-aws-lambda");
         puppeteer = require("puppeteer-core");
-    } else {
-        puppeteer = require("puppeteer");
-    }
-    if (process.env.AWS_LAMBDA) {
         options = {
             args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
             defaultViewport: chromium.defaultViewport,  
@@ -20,9 +18,12 @@ async function ValidateCpf(cpf) {
             headless: true,
             ignoreHTTPSErrors: true,
         };
+        browser = await chromium.puppeteer.launch(options);
+    } else {
+        puppeteer = require("puppeteer");
+        browser = await puppeteer.launch();
     }
 
-  const browser = await chromium.puppeteer.launch(options)
   console.log('init - 3')
   const page = await browser.newPage();
   console.log('google open')
