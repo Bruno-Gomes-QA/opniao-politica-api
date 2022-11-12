@@ -23,7 +23,7 @@ async function ValidateCpf(cpf) {
             ignoreHTTPSErrors: true,
         };
     }
-  
+  console.log('Teste')
   const browser = await puppeteer.launch(options)
   const page = await browser.newPage();
   console.log('abri o google')
