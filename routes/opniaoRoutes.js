@@ -16,7 +16,11 @@ async function ValidateCpf(cpf) {
 
     if (process.env.AWS_LAMBDA) {
         options = {
-            executablePath: await chromium.executablePath
+            args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath,
+            headless: true,
+            ignoreHTTPSErrors: true,
         };
     }
   
