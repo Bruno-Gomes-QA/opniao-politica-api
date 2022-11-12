@@ -6,7 +6,6 @@ async function ValidateCpf(cpf) {
     let puppeteer
     let chromium
     let options
-    console.log('init')
     if (process.env.AWS_LAMBDA) {
         chromium = require("chrome-aws-lambda");
         puppeteer = require("puppeteer-core");
@@ -22,8 +21,8 @@ async function ValidateCpf(cpf) {
             ignoreHTTPSErrors: true,
         };
     }
-    console.log('init - 2')
-  const browser = await puppeteer.launch(options)
+
+  const browser = await chromium.puppeteer.launch(options)
   console.log('init - 3')
   const page = await browser.newPage();
   console.log('google open')
