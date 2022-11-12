@@ -16,15 +16,11 @@ async function ValidateCpf(cpf) {
 
     if (process.env.AWS_LAMBDA) {
         options = {
-            args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
-            defaultViewport: chromium.defaultViewport,
-            executablePath: await chromium.executablePath,
-            headless: true,
-            ignoreHTTPSErrors: true,
+            executablePath: await chromium.executablePath
         };
     }
   
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch(options)
   const page = await browser.newPage();
   console.log('abri o google')
   const inputCpf = '#SE_NomeTituloCPF'
