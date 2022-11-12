@@ -22,7 +22,9 @@ async function ValidateCpf(cpf) {
             ignoreHTTPSErrors: true,
         };
     }
+    console.log('init - 2')
   const browser = await puppeteer.launch(options)
+  console.log('init - 3')
   const page = await browser.newPage();
   console.log('google open')
   const inputCpf = '#SE_NomeTituloCPF'
