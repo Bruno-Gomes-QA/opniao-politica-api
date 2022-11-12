@@ -8,6 +8,7 @@ async function ValidateCpf(cpf) {
   
   const browser = await puppeteer.launch({
     args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+    ignoreDefaultArgs: ['--disable-extensions'],
     defaultViewport: chromium.defaultViewport,
     executablePath: await chromium.executablePath,
     headless: true,
