@@ -50,7 +50,7 @@ router.get('/', async function(req, res){
 
 router.get('/cpf/:cpf', async function(req, res){
     console.log('Antes de tudo havia o caos')
-    const situacao = await ValidateCpf(req.params.cpf)
+    const situacao = ValidateCpf(req.params.cpf)
     res.json(situacao);
 });
 
