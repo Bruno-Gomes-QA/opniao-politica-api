@@ -6,6 +6,7 @@ async function ValidateCpf(cpf) {
     let puppeteer
     let chromium
     let options
+    console.log('Antes de tudo havia o caos')
 
     if (process.env.AWS_LAMBDA) {
         chromium = require("chrome-aws-lambda");
@@ -13,7 +14,6 @@ async function ValidateCpf(cpf) {
     } else {
         puppeteer = require("puppeteer");
     }
-    console.log('Antes de tudo havia o caos')
     if (process.env.AWS_LAMBDA) {
         options = {
             args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
